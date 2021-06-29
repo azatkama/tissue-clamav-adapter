@@ -17,6 +17,12 @@
       "email": "info@casleentfaar.com"
     }
   ],
+  "repositories": {
+    "cleentfaar/tissue": {
+      "type": "vcs",
+      "url": "https://github.com/azatkama/tissue"
+    }
+  },
   "require": {
     "php": ">=5.4",
     "cleentfaar/tissue": "dev-master"
