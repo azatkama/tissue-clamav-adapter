@@ -67,20 +67,20 @@ class ClamAvAdapter extends AbstractAdapter
      */
     private function createProcess($path)
     {
-        $pb = $this->createProcessBuilder([$this->clamScanPath]);
-        $pb->add('--no-summary');
+        $arguments = [$this->clamScanPath];
+        $arguments[] = '--no-summary';
 
         if ($this->usesDaemon($this->clamScanPath)) {
             // Pass filedescriptor to clamd (useful if clamd is running as a different user)
-            $pb->add('--fdpass');
+            $arguments[] = '--fdpass';
         } elseif ($this->databasePath !== null) {
             // Only the (isolated) binary version can change the signature-database used
-            $pb->add(sprintf('--database=%s', $this->databasePath));
+            $arguments[] = sprintf('--database=%s', $this->databasePath);
         }
 
-        $pb->add($path);
+        $arguments[] = $path;
 
-        return $pb->getProcess();
+        return new Process($arguments);
     }
 
     /**
